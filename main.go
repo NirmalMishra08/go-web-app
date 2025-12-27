@@ -32,6 +32,8 @@ func main() {
 	http.HandleFunc("/about", aboutPage)
 	http.HandleFunc("/contact", contactPage)
 
+	log.Println("Server is running at PORT:",8000)
+
 	err := http.ListenAndServe("0.0.0.0:8080", nil)
 	if err != nil {
 		log.Fatal(err)
