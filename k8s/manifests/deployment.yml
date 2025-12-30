@@ -17,5 +17,6 @@ spec:
       containers:
       - name: go-web-app
         image: nirmal08/go-web-app:v1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080

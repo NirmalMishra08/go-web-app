@@ -1,4 +1,4 @@
-FROM golang:1.22.5 as base
+FROM --platform=$BUILDPLATFORM golang:1.22.5 as base
 
 WORKDIR /app
 
@@ -13,7 +13,10 @@ RUN  go build -o main .
 
 #Final stage - distroless image
 
-FROM  gcr.io/distroless/base
+ARG TARGETOS TARGETARCH
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o main .
+
+FROM --platform=$TARGETPLATFORM gcr.io/distroless/base
 
 COPY --from=base /app/main .
 
